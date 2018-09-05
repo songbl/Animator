@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    valueFrome:初始值
+    valueTo：结束值
+    valueType:变化类型floatType intType
+    startOffset：动画延时时间（ms）
+    fillBefore：动画播放完，视图是否停留在动画开始状态，默认true
+    repeatMode： restart正序，reverse倒序
+    interpolator：差值器  @[packge:]anim/interpolar_resource
+-->
+<animator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:valueFrom="0"
+    android:valueTo="100"
+    android:valueType="intType"
+    android:duration="3000"
+    android:startOffset="1000"
+    android:fillBefore="true"
+    android:fillAfter="true"
+    android:repeatMode="restart"
+    android:repeatCount="0"
+    />
+
