@@ -68,12 +68,12 @@ public class AnimatorView extends View {
                 public void onAnimationUpdate(ValueAnimator animation) {
 
                     currentPoint = (Point) animation.getAnimatedValue();
-                    Log.e("songbl","===="+currentPoint.getX());
+                    Log.e("songbl","====currentPoint.getX()"+currentPoint.getX());
                     // 将每次变化后的坐标值（估值器PointEvaluator中evaluate（）返回的Piont对象值）到当前坐标值对象（currentPoint）
                     // 从而更新当前坐标值（currentPoint）
 
-                    // 步骤4：每次赋值后就重新绘制，从而实现动画效果
-                    invalidate();
+                    // 步骤4：每次赋值后就重新绘制，从而实现动画效果（======手动调用=======）
+                     invalidate();
                     // 调用invalidate()后,就会刷新View,即才能看到重新绘制的界面,即onDraw()会被重新调用一次
                     // 所以坐标值每改变一次,就会调用onDraw()一次
                 }

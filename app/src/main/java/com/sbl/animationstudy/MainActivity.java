@@ -4,6 +4,7 @@ package com.sbl.animationstudy;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -15,18 +16,24 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView ;
+    private ObjectAnimatorModeView objectAnimatorModeView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.tv_test_one);
-        animTestJAVA(textView);
+        objectAnimatorModeView = findViewById(R.id.ov_test);
+    //    textView = findViewById(R.id.tv_test_one);
+   //     animTestJAVA(textView);
+    //    objectAnimatorTestJAVA();
+
+        objectmyDefineproperty();
     }
 
 
     /**
      * ValueAnimatot.ofInt(int values)
      * 将初始值以整型数值的形式过渡到结束值
+     * ValueAnimator
      * @param view
      */
     public void animTestJAVA(final View view){
@@ -69,34 +76,61 @@ public class MainActivity extends AppCompatActivity {
         animation.start();
     }
 
+
+    //===================ObjectAnimator================================
     /**
-     *  ValueAnimator.ofObject()
-     *  将初始值以对象的形式过度到结束值
+     *  直接对对象属性值进行改变操作，从而实现动画效果
+     *  继承自ValueAnimator，低层动画实现机制基于ValueAnimator
+     *  本质：还是通过   值   变化，再不断   自动   赋给对象的属性。
      */
-    public void animationObjTest(){
+    public void objectAnimatorTestJAVA(){
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView,"alpha",1f,0,1f);
+        objectAnimator.setDuration(1000);
+        objectAnimator.setRepeatCount(0);
+        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
+        objectAnimator.start();
 
     }
+    public void objectAnimatorTestXML(Context context,View view){
+        Animator animator = AnimatorInflater.loadAnimator(context,R.animator.animator_object_test);
+        animator.setTarget(view);
+        animator.start();
+    }
 
+    /**
+     * 自定义属性，实现动画效果
+     */
+    public void objectmyDefineproperty(){
+        ObjectAnimator anim = ObjectAnimator.ofObject(objectAnimatorModeView, "color", new ObjectEvaluator(),
+                "#0000FF", "#FF0000");
+        // 设置自定义View对象、背景颜色属性值 & 颜色估值器
+        // 本质逻辑：
+        // 步骤1：根据颜色估值器不断 改变 值
+        // 步骤2：调用set（）设置背景颜色的属性值（实际上是通过画笔进行颜色设置）
+        // 步骤3：调用invalidate()刷新视图，即调用onDraw（）重新绘制，从而实现动画效果
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        anim.setDuration(8000);
+        anim.start();
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

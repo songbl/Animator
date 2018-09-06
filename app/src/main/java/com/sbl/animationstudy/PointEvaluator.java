@@ -21,7 +21,7 @@ public class PointEvaluator implements TypeEvaluator {
         float x = startPoint.getX() + v*(endPoint.getX() - startPoint.getX());
         float y = startPoint.getY() + v*(endPoint.getY() - startPoint.getY());
         //(其实还是值的运算)
-        Log.e("songbl",v+"");
+        Log.e("songbl","估值器完成度"+v);
         //将计算后的坐标封装成一个新的Point对象并返回
         Point point = new Point(x,y);
         return point;
